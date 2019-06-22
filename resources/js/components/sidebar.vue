@@ -47,6 +47,11 @@
 
 <script>
 export default {
-  props: ["authenticated"]
+  props: ["authenticated"],
+  methods: {
+    logout() {
+      this.$parent.$emit("logoutEvent");
+    }
+  }
 };
 </script>

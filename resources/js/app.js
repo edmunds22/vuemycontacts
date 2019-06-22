@@ -27,13 +27,13 @@ Vue.use(VueFlashMessage);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 const contactlist = Vue.component(
-    'contactlist',
-    require('./components/contactList.vue').default
+  'contactlist',
+  require('./components/contactList.vue').default
 );
 
 Vue.component(
-    'sidebar',
-    require('./components/sidebar.vue').default
+  'sidebar',
+  require('./components/sidebar.vue').default
 );
 
 const newContact = Vue.component('newcontact', require('./components/newContact.vue').default);
@@ -64,8 +64,8 @@ const router = new VueRouter({
 })
 
 const app = new Vue({
-  data(){
-    return { 
+  data() {
+    return {
       authenticated: false,
       token: false
     }
@@ -76,26 +76,32 @@ const app = new Vue({
       this.authenticated = true;
     }
     if (!this.authenticated) {
-      this.$router.replace( "/login" );
+      this.$router.replace("/login");
     }
 
-    this.$on("authed", function(){
+    this.$on("authed", function () {
       this.setAuthenticated(true);
     });
-   },
-   methods: {
-            setAuthenticated(status) {
-                this.authenticated = status;
-                this.flash("Login ok", "success", { timeout: 3000 });
-                this.$router.push("/");
-                this.$forceUpdate();
-            },
-            logout() {
-                this.authenticated = false;
-                localStorage.removeItem('token');
-                this.$router.replace( "/login" );
-                this.$forceUpdate();
-            }
+
+    this.$on("logoutEvent", function () {
+      this.logout();
+    });
+
+  },
+  methods: {
+    setAuthenticated(status) {
+      this.authenticated = status;
+      this.flash("Login ok", "success", { timeout: 3000 });
+      this.$router.push("/");
+      this.$forceUpdate();
     },
+    logout() {
+      this.authenticated = false;
+      localStorage.removeItem('token');
+      this.flash("Logout ok", "success", { timeout: 3000 });
+      this.$router.replace("/login");
+      this.$forceUpdate();
+    }
+  },
   router
 }).$mount('#app');
