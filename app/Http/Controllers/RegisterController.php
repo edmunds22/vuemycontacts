@@ -7,9 +7,23 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 use App\User;
 
+/**
+ * General registration and authentication functionality
+ *
+ * @category Controllers
+ * @package  VueContacts
+ * @author   WP Edmunds <will@wpedmunds.uk>
+ * @link     http://wpedmunds.uk
+ */
 class RegisterController extends Controller
 {
-    //
+    /**
+     * Register the new user
+     *
+     * @param   Request  $request
+     *
+     * @return  json Status of the request and a possible message bag
+     */
     function register(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -37,6 +51,13 @@ class RegisterController extends Controller
 
     }
 
+    /**
+     * Login the user
+     *
+     * @param   Request  $request
+     *
+     * @return  json Status of the request and a possible access token if successful
+     */
     function login(Request $request)
     {
         $user = User::where([

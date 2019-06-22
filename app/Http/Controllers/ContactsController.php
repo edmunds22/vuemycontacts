@@ -7,11 +7,23 @@ use \App\Contact as Contact;
 use \App\User as User;
 use Validator;
 
+/**
+ * General functionality around fetching and updating contacts
+ *
+ * @category Controllers
+ * @package  VueContacts
+ * @author   WP Edmunds <will@wpedmunds.uk>
+ * @link     http://wpedmunds.uk
+ */
 class ContactsController extends Controller
 {
 
     /**
-     * @token string Users authentication token
+     * Fetch user id by token
+     *
+     * @param   String  $token
+     *
+     * @return  $id integer - the users id
      */
     private function getUserId($token){
         $user = User::where([
@@ -20,9 +32,15 @@ class ContactsController extends Controller
         return $user->id;
     }
 
+    /**
+     * Fetch contacts
+     *
+     * @param   Request  $request
+     *
+     * @return  json list of user's stored contacts
+     */
     function list(Request $request)
     {
-
         $userId = self::getUserId($request->token);
         $contacts = User::where('token', $request->token)->first()->contacts;
         return response()->json([
@@ -30,6 +48,13 @@ class ContactsController extends Controller
         ]);
     }
 
+    /**
+     * Create new contact endpoint
+     *
+     * @param   Request  $request
+     *
+     * @return  json success status and possibly a message bag
+     */
     function create(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -61,6 +86,14 @@ class ContactsController extends Controller
 
     }
 
+    /**
+     * Fetch an individual contact
+     *
+     * @param   Request  $request
+     * @param  $id Int   Fetching contact id
+     *
+     * @return  json contact object
+     */
     function fetch(Request $request, $id)
     {
 
@@ -70,11 +103,20 @@ class ContactsController extends Controller
             'id' => $id,
             'user_id' => $userId
         ])->first();
+        
         return response()->json([
             'contact' => $contact
         ]);
     }
 
+    /**
+     * Update a stored contact
+     *
+     * @param   Request  $request
+     * @param   Int $id Id of the contact to be updated
+     *
+     * @return  json success status
+     */
     function update(Request $request, $id)
     {
 
@@ -84,6 +126,7 @@ class ContactsController extends Controller
             'id' => $id,
             'user_id' => $userId
         ])->first();
+        
         $contact->full_name = $request->full_name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
