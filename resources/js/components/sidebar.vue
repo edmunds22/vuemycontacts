@@ -30,6 +30,16 @@
             <span class="sr-only"></span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/edmunds22/vuemycontacts" target="_blank">
+            <span></span>
+            My source code
+            <span class="sr-only"></span>
+          </a>
+        </li>
+        <li class="nav-item" v-if="authenticated">
+          <a class="nav-link" href="#" v-on:click="logout()">Sign out</a>
+        </li>
       </ul>
     </div>
   </nav>

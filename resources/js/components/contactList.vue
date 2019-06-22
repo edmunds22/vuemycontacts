@@ -8,6 +8,7 @@
           <th>Header</th>
           <th>Header</th>
           <th>Header</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -17,7 +18,7 @@
           <td>{{ contact.phone }}</td>
           <td>{{ contact.email }}</td>
           <td>
-            <router-link :to="'/update/'+contact.id">Update</router-link>
+            <router-link :to="'/update/'+contact.id" class="btn btn-secondary btn-sm">Update</router-link>
           </td>
         </tr>
       </tbody>

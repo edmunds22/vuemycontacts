@@ -35,7 +35,7 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input
-          type="text"
+          type="password"
           class="form-control"
           :class="{ 'is-invalid': $v.form.password.$error }"
           id="password"

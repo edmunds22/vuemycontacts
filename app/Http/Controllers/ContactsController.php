@@ -10,13 +10,16 @@ use Validator;
 class ContactsController extends Controller
 {
 
+    /**
+     * @token string Users authentication token
+     */
     private function getUserId($token){
         $user = User::where([
             'token' => $token
         ])->first();
         return $user->id;
     }
-    //
+
     function list(Request $request)
     {
 
