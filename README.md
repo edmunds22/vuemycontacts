@@ -15,6 +15,6 @@ Token based auth
 Vue router
 Bootstrap 4 UI
 Basic token-auth functionality
-Axios http library
+Fetch api
 
 Criticize my dev skills here: http://read.wpedmunds.uk/2019/06/10/vuejs-laravel-address-book-app/
