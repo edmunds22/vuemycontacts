@@ -18,8 +18,11 @@ class CreateContactsTable extends Migration
             $table->string('full_name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+
+            $table->index(['user_id']);
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
